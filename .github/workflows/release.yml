@@ -10,7 +10,7 @@ jobs:
   handle-syncwith:
     if: github.event_name == 'pull_request'
     name: Call reusable set version
-    uses: NilFoundation/ci-cd/.github/workflows/reusable-set-version.yml@eff82bcd8cf49927a91e2c72e250820288ba5147
+    uses: NilFoundation/ci-cd/.github/workflows/reusable-set-version.yml@c29f60326742e15699540c226a157f981b652adb
     with:
       release_type: 'minor'
     secrets: inherit
