@@ -59,16 +59,18 @@ jobs:
             exit 1
           else
             echo "creating tag $tag"
-            echo "VERSION=$tag" >> $GITHUB_ENV
             echo "VERSION=$tag"
-            touch .VERSION
+            echo "VERSION=$tag" >> $GITHUB_ENV
+            echo "VERSION=$tag" > .VERSION
           fi
       - name: Write version to file
+        if: steps.set_version.outcome == 'success'
         uses: brettdorrans/write-version-to-file@master
         with:
           filename: '.VERSION'
       - name: Commit VERSION file
         run : git add .VERSION
-              git commit -m "update VER"
+              git commit -m "update VERSION file"
               git push origin HEAD
               git tag $VERSION master
+              git push origin tag $VERSION
