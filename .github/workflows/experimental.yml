@@ -32,7 +32,6 @@ jobs:
         continue-on-error: true
         run: |
           git describe --tags # git describe fails if there are no tags yet. Required to fail the step.
-
           LATEST_TAG=`git describe --tags | cut -d'-' -f1 | tr -d v`
           echo "LATEST_TAG=$LATEST_TAG"
           MAJOR=`echo $LATEST_TAG | cut -d'.' -f1`
@@ -40,7 +39,6 @@ jobs:
           PATCH=`echo $LATEST_TAG | cut -d'.' -f3`
 
           case $RELEASE_TYPE in
-
             major)
               MAJOR=$((MAJOR+1))
               MINOR=0
