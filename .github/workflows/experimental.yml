@@ -22,7 +22,7 @@ jobs:
       - name: Compute release number
         continue-on-error: true
         run: |
-          git describe --tags --always # git describe fails if there are no tags yet
+          git describe --tags # git describe fails if there are no tags yet
           retVal=$?
           if [ $retVal -ne 0 ]; then
             echo "No last tag detected, try to assign 0.0.0"
@@ -34,6 +34,7 @@ jobs:
               echo "creating tag $tag"
               echo "VERSION=$tag" >> $GITHUB_ENV
               echo "VERSION=$tag"
+              touch .VERSION
             fi
             exit 0
           fi
