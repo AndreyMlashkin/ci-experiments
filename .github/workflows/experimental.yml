@@ -21,7 +21,7 @@ jobs:
         run: echo "$GITHUB_CONTEXT"
       - name: Compute release number
         run: |
-          LATEST_TAG=`git describe --tags | cut -d'-' -f1 | tr -d v`
+          LATEST_TAG=`git describe --tags --always | cut -d'-' -f1 | tr -d v` # git describe will fail if there are no tags yet
           MAJOR=`echo $LATEST_TAG | cut -d'.' -f1`
           MINOR=`echo $LATEST_TAG | cut -d'.' -f2`
           PATCH=`echo $LATEST_TAG | cut -d'.' -f3`
@@ -47,6 +47,18 @@ jobs:
           esac
           echo "VERSION=$MAJOR.$MINOR.$PATCH" >> $GITHUB_ENV
           echo "VERSION=$MAJOR.$MINOR.$PATCH"
+       -name: Create first tag
+        if: ${{ failure() }}
+        run:  |
+        tag="0.0.0"
+        if git rev-parse -q --verify "refs/tags/$tag" >/dev/null; then
+          echo "tag $tag already exists, aborting"
+          exit 1
+        else
+          echo "creating tag $tag"
+          echo "VERSION=$tag" >> $GITHUB_ENV
+          echo "VERSION=$tag"
+        fi
       - name: Write version to file
         uses: brettdorrans/write-version-to-file@master
         with:
