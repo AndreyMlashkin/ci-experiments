@@ -37,7 +37,6 @@ jobs:
           MAJOR=`echo $LATEST_TAG | cut -d'.' -f1`
           MINOR=`echo $LATEST_TAG | cut -d'.' -f2`
           PATCH=`echo $LATEST_TAG | cut -d'.' -f3`
-
           case $RELEASE_TYPE in
             major)
               MAJOR=$((MAJOR+1))
