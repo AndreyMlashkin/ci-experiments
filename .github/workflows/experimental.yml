@@ -73,8 +73,10 @@ jobs:
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
-
+        run: |
+          echo "$GITHUB_CONTEXT"
+          echo "$GITHUB_ENV"
+          echo "$VERSION"
       - name: Commit VERSION file
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
