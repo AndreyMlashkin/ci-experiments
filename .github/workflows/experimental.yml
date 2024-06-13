@@ -69,7 +69,7 @@ jobs:
         with:
           filename: '.VERSION'
       - name: Commit VERSION file
-      - uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Update VERSION file
           file_pattern: '.VERSION'
