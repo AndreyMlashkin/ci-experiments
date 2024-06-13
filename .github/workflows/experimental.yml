@@ -76,7 +76,8 @@ jobs:
         run: |
           echo "$GITHUB_CONTEXT"
           echo "$GITHUB_ENV"
-          echo "$VERSION"
+          echo "VERSION=$VERSION"
+          cat $GITHUB_ENV
       - name: Commit VERSION file
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
