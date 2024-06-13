@@ -70,9 +70,14 @@ jobs:
         uses: brettdorrans/write-version-to-file@master
         with:
           filename: '.VERSION'
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
       - name: Commit VERSION file
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Update VERSION file
           file_pattern: '.VERSION'
-          tagging_message: $VERSION
+          tagging_message: ${{ VERSION }}
