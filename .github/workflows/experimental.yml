@@ -75,12 +75,12 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: |
           echo "$GITHUB_CONTEXT"
-          echo "$GITHUB_ENV"
           echo "VERSION=$VERSION"
+          echo "$GITHUB_ENV"
           cat $GITHUB_ENV
       - name: Commit VERSION file
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Update VERSION file
           file_pattern: '.VERSION'
-          tagging_message: ${{ vars.VERSION }}
+          tagging_message: ${VERSION}
