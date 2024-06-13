@@ -47,18 +47,18 @@ jobs:
           esac
           echo "VERSION=$MAJOR.$MINOR.$PATCH" >> $GITHUB_ENV
           echo "VERSION=$MAJOR.$MINOR.$PATCH"
-       -name: Create first tag
-        if: ${{ failure() }}
-        run:  |
-        tag="0.0.0"
-        if git rev-parse -q --verify "refs/tags/$tag" >/dev/null; then
-          echo "tag $tag already exists, aborting"
-          exit 1
-        else
-          echo "creating tag $tag"
-          echo "VERSION=$tag" >> $GITHUB_ENV
-          echo "VERSION=$tag"
-        fi
+       - name: Create first tag
+           if: ${{ failure() }}
+          run:  |
+          tag="0.0.0"
+          if git rev-parse -q --verify "refs/tags/$tag" >/dev/null; then
+            echo "tag $tag already exists, aborting"
+            exit 1
+          else
+            echo "creating tag $tag"
+            echo "VERSION=$tag" >> $GITHUB_ENV
+            echo "VERSION=$tag"
+          fi
       - name: Write version to file
         uses: brettdorrans/write-version-to-file@master
         with:
