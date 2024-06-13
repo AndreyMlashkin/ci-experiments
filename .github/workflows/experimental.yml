@@ -9,6 +9,8 @@ on:
 jobs:
   experiment-run:
     runs-on: [ubuntu-latest]
+    permissions:
+      contents: write
     steps:
       - name: Checkout sources
         uses: actions/checkout@v4
@@ -70,8 +72,6 @@ jobs:
           filename: '.VERSION'
       - name: Commit VERSION file
         uses: stefanzweifel/git-auto-commit-action@v5
-        permissions:
-          contents: write
         with:
           commit_message: Update VERSION file
           file_pattern: '.VERSION'
