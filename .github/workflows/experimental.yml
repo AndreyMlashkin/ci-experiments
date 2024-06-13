@@ -1,0 +1,67 @@
+name: Tag release
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  experiment-run:
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+        with:
+          submodules: 'false'
+          fetch-depth: 0
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: Detect change type
+        env:
+          CHANGE_TYPE: ${{ github.event.pull_request.title }}
+        run:
+          echo "experiment"
+          echo "CHANGE_TYPE=$CHANGE_TYPE"
+          echo "$CHANGE_TYPE" | grep -i patch > /dev/null && echo "RELEASE_TYPE=patch" >> $GITHUB_ENV
+          echo "$CHANGE_TYPE" | grep -i minor > /dev/null && echo "RELEASE_TYPE=minor" >> $GITHUB_ENV
+          echo "$CHANGE_TYPE" | grep -i major > /dev/null && echo "RELEASE_TYPE=major" >> $GITHUB_ENV
+      - name: Compute release number
+        run: |
+          LATEST_TAG=`git describe --tags | cut -d'-' -f1 | tr -d v`
+          MAJOR=`echo $LATEST_TAG | cut -d'.' -f1`
+          MINOR=`echo $LATEST_TAG | cut -d'.' -f2`
+          PATCH=`echo $LATEST_TAG | cut -d'.' -f3`
+
+          case $RELEASE_TYPE in
+
+            major)
+              MAJOR=$((MAJOR+1))
+              MINOR=0
+              PATCH=0
+              ;;
+            minor)
+              MINOR=$((MINOR+1))
+              PATCH=0
+              ;;
+            patch)
+              PATCH=$((PATCH+1))
+              ;;
+            *)
+              echo "Unknown release type"
+              exit 1
+              ;;
+          esac
+          echo "VERSION=$MAJOR.$MINOR.$PATCH" >> $GITHUB_ENV
+          echo "VERSION=$MAJOR.$MINOR.$PATCH"
+      - name: Write version to file
+        uses: brettdorrans/write-version-to-file@master
+        with:
+          filename: '/.VERSION'
+      - name: Commit VERSION file
+        run : git add .VERSION
+              git commit -m "update VER"
+              git push origin HEAD
+              git tag $VERSION master
