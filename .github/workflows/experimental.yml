@@ -69,12 +69,8 @@ jobs:
         with:
           filename: '.VERSION'
       - name: Commit VERSION file
-        run : git add .VERSION
-
-              git commit -m "update VERSION file"
-
-              git push origin HEAD
-
-              git tag $VERSION master
-
-              git push origin tag $VERSION
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Update VERSION file
+          file_pattern: '.VERSION'
+          tagging_message: $VERSION
