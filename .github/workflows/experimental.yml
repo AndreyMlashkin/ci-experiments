@@ -23,14 +23,12 @@ jobs:
         env:
           CHANGE_TYPE: ${{ github.event.pull_request.title }}
         run:
-          results_dir="./results"
-          mkdir -p "$results_dir"
-          ls -l -a
-          echo "experiment"
-          echo "CHANGE_TYPE=$CHANGE_TYPE"
-          echo "$CHANGE_TYPE" | grep -i patch > /dev/null && echo "RELEASE_TYPE=patch" >> $GITHUB_ENV
-          echo "$CHANGE_TYPE" | grep -i minor > /dev/null && echo "RELEASE_TYPE=minor" >> $GITHUB_ENV
-          echo "$CHANGE_TYPE" | grep -i major > /dev/null && echo "RELEASE_TYPE=major" >> $GITHUB_ENV
+          ls -l -a && \
+          echo "experiment" && \
+          echo "CHANGE_TYPE=$CHANGE_TYPE" && \
+          echo "$CHANGE_TYPE" | grep -i patch > /dev/null && echo "RELEASE_TYPE=patch" >> $GITHUB_ENV && \
+          echo "$CHANGE_TYPE" | grep -i minor > /dev/null && echo "RELEASE_TYPE=minor" >> $GITHUB_ENV && \
+          echo "$CHANGE_TYPE" | grep -i major > /dev/null && echo "RELEASE_TYPE=major" >> $GITHUB_ENV && \
       - name: Compute release number
         run: |
           LATEST_TAG=`git describe --tags | cut -d'-' -f1 | tr -d v`
