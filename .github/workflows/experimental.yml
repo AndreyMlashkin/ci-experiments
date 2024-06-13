@@ -55,25 +55,27 @@ jobs:
               exit 1
               ;;
           esac
-          echo "VERSION=$MAJOR.$MINOR.$PATCH" >> $GITHUB_ENV
-          echo "VERSION=$MAJOR.$MINOR.$PATCH"
-          echo "VERSION=$tag" > .VERSION
+          TAG=$MAJOR.$MINOR.$PATCH
+          echo "VERSION=$TAG" >> $GITHUB_ENV
+          echo "VERSION=$TAG" >> $GITHUB_OUTPUT
+          echo "VERSION=$TAG"
+          echo "VERSION=$TAG" > .VERSION
 
       - name: Fallback set version
         id: fallback
         if: steps.set_version.outcome != 'success'
         run: |
-          tag="0.0.0"
-          echo "No last tag detected, try to assign $tag"
-          if git rev-parse -q --verify "refs/tags/$tag" >/dev/null; then
+          TAG="0.0.0"
+          echo "No last tag detected, try to assign $TAG"
+          if git rev-parse -q --verify "refs/tags/$TAG" >/dev/null; then
             echo "tag $tag already exists, aborting"
             exit 1
           else
-            echo "creating tag $tag"
-            echo "VERSION=$tag"
-            echo "VERSION=$tag" >> $GITHUB_ENV
-            echo "VERSION=$tag" >> $GITHUB_OUTPUT
-            echo "VERSION=$tag" > .VERSION
+            echo "creating tag $TAG"
+            echo "VERSION=$TAG"
+            echo "VERSION=$TAG" >> $GITHUB_ENV
+            echo "VERSION=$TAG" >> $GITHUB_OUTPUT
+            echo "VERSION=$TAG" > .VERSION
           fi
       - name: Write version to file
         if: steps.set_version.outcome == 'success'
