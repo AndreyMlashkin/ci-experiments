@@ -57,6 +57,7 @@ jobs:
           esac
           echo "VERSION=$MAJOR.$MINOR.$PATCH" >> $GITHUB_ENV
           echo "VERSION=$MAJOR.$MINOR.$PATCH"
+          echo "VERSION=$tag" > .VERSION
 
       - name: Fallback set version
         id: fallback
