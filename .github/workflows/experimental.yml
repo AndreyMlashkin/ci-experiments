@@ -15,10 +15,6 @@ jobs:
         with:
           submodules: 'false'
           fetch-depth: 0
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
       - name: Compute release number
         id: set_version
         continue-on-error: true
