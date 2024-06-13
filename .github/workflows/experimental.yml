@@ -20,6 +20,7 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
       - name: Compute release number
+        id: set_version
         continue-on-error: true
         run: |
           git describe --tags # git describe fails if there are no tags yet. Required to fail the step.
@@ -53,7 +54,7 @@ jobs:
           echo "VERSION=$MAJOR.$MINOR.$PATCH"
 
       - name: Fallback set version
-        if: failure()
+        if: steps.set_version.outcome != 'success'
         run: |
           tag="0.0.0"
           echo "No last tag detected, try to assign $tag"
