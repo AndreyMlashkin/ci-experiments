@@ -24,11 +24,9 @@ jobs:
         shell: bash
         run: |
           echo "CHANGE_TYPE=$CHANGE_TYPE"
-          ls -l -a
-          echo "$CHANGE_TYPE" | grep -i patch > /dev/null && echo "RELEASE_TYPE=patch" >> $GITHUB_ENV
-          echo "$CHANGE_TYPE" | grep -i minor > /dev/null && echo "RELEASE_TYPE=minor" >> $GITHUB_ENV
-          echo "$CHANGE_TYPE" | grep -i major > /dev/null && echo "RELEASE_TYPE=major" >> $GITHUB_ENV
-
+          echo "$CHANGE_TYPE" | grep -i major > /dev/null && echo "RELEASE_TYPE=major" >> $GITHUB_ENV && exit 0
+          echo "$CHANGE_TYPE" | grep -i minor > /dev/null && echo "RELEASE_TYPE=minor" >> $GITHUB_ENV && exit 0
+          echo "RELEASE_TYPE=patch" >> $GITHUB_ENV # use patch by default, if nothing is specified
       - name: Compute release number
         id: set_version
         continue-on-error: true
