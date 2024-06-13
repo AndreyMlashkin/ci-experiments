@@ -70,7 +70,7 @@ jobs:
       - name: Write version to file
         uses: brettdorrans/write-version-to-file@master
         with:
-          filename: '/.VERSION'
+          filename: '.VERSION'
       - name: Commit VERSION file
         run : git add .VERSION
               git commit -m "update VER"
