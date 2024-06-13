@@ -93,4 +93,4 @@ jobs:
         with:
           commit_message: Update VERSION file
           file_pattern: '.VERSION'
-          tagging_message: ${{ steps.fallback.outputs.VERSION }}
+          tagging_message: ${{ steps.set_version.outputs.VERSION }}${{ steps.fallback.outputs.VERSION }} # one of the jobs will contain not empty string
