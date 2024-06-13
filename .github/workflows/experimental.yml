@@ -20,6 +20,7 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
       - name: Compute release number
+        continue-on-error: true
         run: |
           git describe --tags --always # git describe fails if there are no tags yet
           retVal=$?
@@ -37,7 +38,7 @@ jobs:
             exit 0
           fi
 
-          LATEST_TAG=`git describe --tags --always | cut -d'-' -f1 | tr -d v`
+          LATEST_TAG=`git describe --tags | cut -d'-' -f1 | tr -d v`
           echo "LATEST_TAG=$LATEST_TAG"
           MAJOR=`echo $LATEST_TAG | cut -d'.' -f1`
           MINOR=`echo $LATEST_TAG | cut -d'.' -f2`
