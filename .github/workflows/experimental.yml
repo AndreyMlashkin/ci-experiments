@@ -1,4 +1,4 @@
-name: Tag release
+name: Experiment with tags
 
 on:
   pull_request:
@@ -23,6 +23,9 @@ jobs:
         env:
           CHANGE_TYPE: ${{ github.event.pull_request.title }}
         run:
+          results_dir="./results"
+          mkdir -p "$results_dir"
+          ls -l -a
           echo "experiment"
           echo "CHANGE_TYPE=$CHANGE_TYPE"
           echo "$CHANGE_TYPE" | grep -i patch > /dev/null && echo "RELEASE_TYPE=patch" >> $GITHUB_ENV
