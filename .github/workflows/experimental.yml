@@ -52,6 +52,7 @@ jobs:
           echo "VERSION=$MAJOR.$MINOR.$PATCH"
 
       - name: Fallback set version
+        id: fallback
         if: steps.set_version.outcome != 'success'
         run: |
           tag="0.0.0"
@@ -63,6 +64,7 @@ jobs:
             echo "creating tag $tag"
             echo "VERSION=$tag"
             echo "VERSION=$tag" >> $GITHUB_ENV
+            echo "VERSION=$tag" >> $GITHUB_OUTPUT
             echo "VERSION=$tag" > .VERSION
           fi
       - name: Write version to file
@@ -76,11 +78,11 @@ jobs:
         run: |
           echo "$GITHUB_CONTEXT"
           echo "VERSION=$VERSION"
-          echo "$GITHUB_ENV"
-          cat $GITHUB_ENV
+          echo "VERSION=$tag" >> $GITHUB_ENV
+          echo "VERSION=$tag" >> $GITHUB_OUTPUT
       - name: Commit VERSION file
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Update VERSION file
           file_pattern: '.VERSION'
-          tagging_message: ${VERSION}
+          tagging_message: ${{ steps.fallback.outputs.VERSION }}
