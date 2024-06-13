@@ -80,4 +80,4 @@ jobs:
         with:
           commit_message: Update VERSION file
           file_pattern: '.VERSION'
-          tagging_message: ${{ VERSION }}
+          tagging_message: ${{ vars.VERSION }}
