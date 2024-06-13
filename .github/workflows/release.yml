@@ -11,3 +11,8 @@ jobs:
     name: Call reusable set version
     uses: NilFoundation/ci-cd/.github/workflows/reusable-set-version.yml@5377a009d39bd94d1afe230da0f402d3612b032a
     secrets: inherit
+  dump-env:
+    name: Dump GitHub context
+    env:
+      GITHUB_CONTEXT: ${{ toJson(github) }}
+    run: echo "$GITHUB_CONTEXT"
