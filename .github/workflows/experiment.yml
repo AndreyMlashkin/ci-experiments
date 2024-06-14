@@ -21,5 +21,5 @@ jobs:
       - name: Compute release number
         id: set_version
         run: |
-          echo $RELEASE_TYPE
+          echo "RELEASE_TYPE=$RELEASE_TYPE"
           git describe --tags # git describe fails if there are no tags yet. Required to fail the step.
