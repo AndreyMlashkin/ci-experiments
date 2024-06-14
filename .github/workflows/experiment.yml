@@ -15,8 +15,8 @@ jobs:
         run: |
           ls
           echo "squashed commits: ${{join(github.event.commits.*.message, ', ') }}"
-          echo "${{join(github.event.commits.*.message, ', ') }} | grep -i major > /dev/null && echo "RELEASE_TYPE=major" >> $GITHUB_ENV && exit 0
-          echo "${{join(github.event.commits.*.message, ', ') }} | grep -i minor > /dev/null && echo "RELEASE_TYPE=minor" >> $GITHUB_ENV && exit 0
+          echo "${{join(github.event.commits.*.message, ', ') }}" | grep -i major > /dev/null && echo "RELEASE_TYPE=major" >> $GITHUB_ENV && exit 0
+          echo "${{join(github.event.commits.*.message, ', ') }}" | grep -i minor > /dev/null && echo "RELEASE_TYPE=minor" >> $GITHUB_ENV && exit 0
           echo "RELEASE_TYPE=patch" >> $GITHUB_ENV
       - name: Compute release number
         id: set_version
