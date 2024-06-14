@@ -22,3 +22,4 @@ jobs:
         id: set_version
         run: |
           echo "RELEASE_TYPE=$RELEASE_TYPE"
+
