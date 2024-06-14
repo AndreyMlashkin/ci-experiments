@@ -8,12 +8,14 @@ on:
 
 jobs:
   detect-changes:
-    - name: Detect change type
-      shell: bash
-      run: |
-        ls
-        commits=${{join(github.event.commits.*.message, ', ') }}
-        echo $commits
-        echo "$commits" | grep -i major > /dev/null && echo "RELEASE_TYPE=major" >> $GITHUB_ENV && exit 0
-        echo "$commits" | grep -i minor > /dev/null && echo "RELEASE_TYPE=minor" >> $GITHUB_ENV && exit 0
-        echo "RELEASE_TYPE=patch" >> $GITHUB_ENV
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Detect change type
+        shell: bash
+        run: |
+          ls
+          commits=${{join(github.event.commits.*.message, ', ') }}
+          echo $commits
+          echo "$commits" | grep -i major > /dev/null && echo "RELEASE_TYPE=major" >> $GITHUB_ENV && exit 0
+          echo "$commits" | grep -i minor > /dev/null && echo "RELEASE_TYPE=minor" >> $GITHUB_ENV && exit 0
+          echo "RELEASE_TYPE=patch" >> $GITHUB_ENV
