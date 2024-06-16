@@ -6,6 +6,9 @@ on:
     branches:
       - master
       - main
+on:
+  pull_request:
+    types: [edited]
 
 jobs:
   release-and-tag:
