@@ -10,5 +10,5 @@ on:
 jobs:
   release-and-tag:
     name: Call reusable set version
-    uses: NilFoundation/ci-cd/.github/workflows/reusable-set-version.yml@2dcc448d2dd334bcc3cbe527dee75c56910a091c
+    uses: NilFoundation/ci-cd/.github/workflows/reusable-set-version.yml@1da307946da539c7f654317c5d3dfb3313a6fb47
     secrets: inherit
