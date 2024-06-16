@@ -10,3 +10,4 @@ jobs:
     name: Call reusable set version
     uses: NilFoundation/ci-cd/.github/workflows/reusable-set-version.yml@9e7eb7eb0423aea0070435069304017b5ed34866
     secrets: inherit
+
