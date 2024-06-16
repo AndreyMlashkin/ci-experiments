@@ -2,10 +2,10 @@ name: Release and tag
 permissions:
   contents: write
 on:
--  push:
--    branches:
--      - master
--      - main
+  push:
+    branches:
+      - master
+      - main
 
 jobs:
   release-and-tag:
