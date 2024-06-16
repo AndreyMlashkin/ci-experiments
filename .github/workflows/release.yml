@@ -7,7 +7,7 @@ on:
       - master
       - main
   pull_request:
-    types: [opened, edited, closed] # we need this triggers for a title check
+    types: [opened, edited] # we need this triggers for a title check
 
 jobs:
   release-and-tag:
