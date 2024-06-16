@@ -6,9 +6,11 @@ on:
     branches:
       - master
       - main
+  pull_request:
+    types: [opened, edited, closed] # we need this triggers for a title check
 
 jobs:
   release-and-tag:
     name: Call reusable set version
-    uses: NilFoundation/ci-cd/.github/workflows/reusable-set-version.yml@1da307946da539c7f654317c5d3dfb3313a6fb47
+    uses: NilFoundation/ci-cd/.github/workflows/reusable-set-version.yml@6c511274946b5e4083f44cf5d26cd5b1948225be
     secrets: inherit
