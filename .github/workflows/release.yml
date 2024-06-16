@@ -2,8 +2,10 @@ name: Release and tag
 permissions:
   contents: write
 on:
-  pull_request:
-    types: [opened, edited, closed] # we need this triggers for a title check
+-  push:
+-    branches:
+-      - master
+-      - main
 
 jobs:
   release-and-tag:
